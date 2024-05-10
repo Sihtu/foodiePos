@@ -1,3 +1,4 @@
+import { config } from "@/src/config";
 import { NewMenuPram } from "@/src/types/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -9,7 +10,7 @@ interface Menu {
 interface Init {
   item: Menu[];
   isLoading: boolean;
-  error: Error | null;
+  error: string | null;
 }
 
 const initialState: Init = {
@@ -21,10 +22,20 @@ const initialState: Init = {
 export const createMenu = createAsyncThunk(
   "menu/createMenu",
   async (newMenu: NewMenuPram) => {
-   
-    newMenu.onSuccess && newMenu.onSuccess()
-    
-    
+    const { onSuccess, ...payload } = newMenu;
+    const respond = await fetch(`${config.backOfficeUrl}/menu`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ ...payload }),
+    });
+    const menu = await respond.json();
+    console.log(menu)
+    console.log("This is menu",menu)
+
+    newMenu.onSuccess && newMenu.onSuccess();
+    return menu;
   }
 );
 
@@ -41,6 +52,21 @@ const MenuSlice = createSlice({
     removeMenu: (state, action: PayloadAction<Menu>) => {
       state.item = state.item.filter((item) => item.id !== action.payload.id);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createMenu.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createMenu.fulfilled, (state, action) => {
+        state.item = [...state.item, action.payload];
+        state.isLoading = false;
+      }).addCase(createMenu.rejected, (state, action) =>{
+        state.isLoading = false
+        const err = new Error("createMenu is error occoured")
+        state.error = err.message
+      })
   },
 });
 
