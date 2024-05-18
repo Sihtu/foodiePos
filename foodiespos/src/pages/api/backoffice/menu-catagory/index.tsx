@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { name, isAvailable } = req.body;
     const isVild = name && isAvailable !== undefined;
     if (!isVild) return res.status(400).json("Bad request");
-    const menuCatagory = await prisma.menuCatagory.create({
+    const menuCatagory = await prisma.menuCategory.create({
       data: { name, isAvailable },
     });
     return res.status(200).json({menuCatagory});

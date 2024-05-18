@@ -1,14 +1,11 @@
 import { config } from "@/src/config";
 import { NewMenuPram } from "@/src/types/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {Menu} from "@prisma/client"
 
-interface Menu {
-  id: number;
-  name: string;
-  price: number;
-}
+
 interface Init {
-  item: Menu[];
+  item: Menu[]; 
   isLoading: boolean;
   error: string | null;
 }

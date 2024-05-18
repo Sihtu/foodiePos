@@ -1,9 +1,12 @@
 import { config } from "@/src/config";
-import { CreateMenuCatagory, MenuCatagory } from "@/src/types/menuCatagory";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { MenuCategory } from "@prisma/client";
+import { BaseOption } from "@/src/types/types";
+
+interface CreateMenuCategory extends BaseOption{}
 
 interface Init {
-  menuCatagory: MenuCatagory[];
+  menuCatagory: MenuCategory[];
   isLoading: boolean;
   error: Error | null;
 }
@@ -16,7 +19,7 @@ const initialState: Init = {
 
 export const CreateNewMenuCatagory = createAsyncThunk(
   "createMenuCatagory/menuCatagory",
-  async (newMenuCatagory: CreateMenuCatagory, thunkApi) => {
+  async (newMenuCatagory: CreateMenuCategory, thunkApi) => {
     const {onSuccess, ...payload} = newMenuCatagory
     const respond = await fetch(`${config.backOfficeUrl}/menu-catagory`, {
       method: "POST",
@@ -36,13 +39,13 @@ const menuCatagory = createSlice({
   name: "menuCatagory",
   initialState,
   reducers: {
-    setMenuCatagory: (state, action: PayloadAction<MenuCatagory[]>) => {
+    setMenuCatagory: (state, action: PayloadAction<MenuCategory[]>) => {
       state.menuCatagory = action.payload;
     },
-    addMenuCatagory: (state, action: PayloadAction<MenuCatagory>) => {
+    addMenuCatagory: (state, action: PayloadAction<MenuCategory>) => {
       state.menuCatagory = [...state.menuCatagory, action.payload];
     },
-    removeMenuCatagory: (state, action: PayloadAction<MenuCatagory>) => {
+    removeMenuCatagory: (state, action: PayloadAction<MenuCategory>) => {
       const menu = state.menuCatagory.filter(
         (item) => item.id !== action.payload.id
       );
