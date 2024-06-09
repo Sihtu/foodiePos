@@ -1,0 +1,11 @@
+Study about "Github"
+Need to delete isArchive row from menuCategory
+Need to make to show error comment when we didn't chose one menuCategory or AddonCategory.(we will check this with array Length!)
+Make "Delete" and "Create" rows from menuCategoryMenu.
+
+
+*******
+when we make menu update we need to think three tabel(menu, menuCategoryMenu, disableLocationMenu)
+
+******
+when we make AddonCategory update , we need to think two table (AddonCategory, addonCategoryMenu)
