@@ -43,7 +43,7 @@ const MenuCatagory = () => {
           </Box>
           <Box sx={{ display: "flex" }}>
             {menuCatagory.map((menuCategoryItem) => {
-              const isDisable = disableLocationMenuCategories.find(
+              const isDisable =disableLocationMenuCategories&& disableLocationMenuCategories.find(
                 (item) =>
                   item.menuCategoryId === menuCategoryItem.id &&
                   item.locationId === selectedLocation?.id

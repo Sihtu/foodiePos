@@ -37,7 +37,7 @@ const menuCatagoryDetails = () => {
     (item) => item.id === menuCatagoryId
   );
 
-  const isAvailable = disableLocationMenuCategories.find(
+  const isAvailable =disableLocationMenuCategories&& disableLocationMenuCategories.find(
     (item) =>
       item.menuCategoryId === menuCatagoryId &&
       item.locationId === selectedLocation?.id
@@ -55,11 +55,7 @@ const menuCatagoryDetails = () => {
     }
   }, [menuCatagory]);
   const handleUpdate = () => {
-   /* const shouldUpdate =
-      updateData?.name !== showMenuCatagory?.name 
-    if (!shouldUpdate) {
-      return router.push("/backoffice/menu-catagory");
-    }*/
+    
     {
       updateData &&
         dispatch(

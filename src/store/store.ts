@@ -8,6 +8,9 @@ import menuCategoryMenuSlice from "./slice/menuCategoryMenuSlice";
 import LocationsSlice from "./slice/LocationsSlice";
 import disableLocationMenuCategory from "./slice/disableLocationMenuCategory";
 import disableLocationMenus from "./slice/disableLocationMenu";
+import addonCategorySlice from "./slice/addonCategorySlice";
+import addonSlice from "./slice/addonSlice";
+import menuAddonCategorySlice from "./slice/menuAddonCategorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +23,9 @@ export const store = configureStore({
     app: appSlice,
     disableLocationMenuCategory: disableLocationMenuCategory,
     disableLocationMenu: disableLocationMenus,
+    addonCategory: addonCategorySlice,
+    addon: addonSlice,
+    menuAddonCategory: menuAddonCategorySlice
   },
 });
 

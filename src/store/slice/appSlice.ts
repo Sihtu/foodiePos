@@ -9,6 +9,9 @@ import { Payload } from "@prisma/client/runtime/library";
 import { Location } from "@prisma/client";
 import { setDisableLocationMenuCategory } from "./disableLocationMenuCategory";
 import { setDisableLocationMenu } from "./disableLocationMenu";
+import { setAddon } from "./addonSlice";
+import { setAddonCategory } from "./addonCategorySlice";
+import { setMenuAddonCategory } from "./menuAddonCategorySlice";
 
 interface Int {
   init: boolean;
@@ -36,10 +39,15 @@ export const fetchAppData = createAsyncThunk(
       location,
       disableLocationMenuCategoryMenu,
       disableLocationMenu,
+      addon,
+      addonCatagory,
+      menuAddonCatagory
     } = data;
     thunkApi.dispatch(setIsLoading(true));
     thunkApi.dispatch(setMenu(menu));
-
+    thunkApi.dispatch(setAddon(addon));
+    thunkApi.dispatch(setAddonCategory(addonCatagory));
+    thunkApi.dispatch(setMenuAddonCategory(menuAddonCatagory))
     thunkApi.dispatch(setMenuCatagory(menuCatagory));
     thunkApi.dispatch(setCompany(company));
     thunkApi.dispatch(setDisableLocationMenu(disableLocationMenu));
@@ -60,7 +68,6 @@ export const fetchAppData = createAsyncThunk(
       thunkApi.dispatch(setSelectedLocation(location[0]));
     }
 
-    
     thunkApi.dispatch(setInt(true));
   }
 );

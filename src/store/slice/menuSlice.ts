@@ -3,6 +3,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Menu } from "@prisma/client";
 import { DeleteMenuProps, NewMenuPram, UpdateMenu } from "@/src/types/menu";
 import { setDisableLocationMenu } from "./disableLocationMenu";
+import { setMenuCatagory } from "./menuCatagorySlice";
+import { setMenuCategoryMenu } from "./menuCategoryMenuSlice";
 
 interface Init {
   item: Menu[];
@@ -47,9 +49,11 @@ export const updateMenu = createAsyncThunk(
       },
       body: JSON.stringify(payload),
     });
-    const { disableLocationMenu, updateMenu } = await respond.json();
+    const { disableLocationMenu, updateMenu, menuCategoryMenu } =
+      await respond.json();
     thunkApi.dispatch(setDisableLocationMenu(disableLocationMenu));
-    thunkApi.dispatch(replaceMenu(updateMenu))
+    thunkApi.dispatch(replaceMenu(updateMenu));
+    thunkApi.dispatch(setMenuCategoryMenu(menuCategoryMenu));
     onSuccess && onSuccess();
   }
 );
@@ -103,5 +107,5 @@ const MenuSlice = createSlice({
   },
 });
 
-export const { setMenu, addMenu, removeMenu , replaceMenu} = MenuSlice.actions;
+export const { setMenu, addMenu, removeMenu, replaceMenu } = MenuSlice.actions;
 export default MenuSlice.reducer;

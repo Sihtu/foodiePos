@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const menuCatagory = await prisma.menuCategory.create({
       data: { name, isAvailable, companyId },
     });
+    console.log(menuCatagory)
     return res.status(200).json({ menuCatagory });
   } else if (method === "PUT") {
     const { id, isAvailable, locationId, ...payload } = req.body;
@@ -29,6 +30,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           await prisma.disabledLocationMenuCategory.findFirst({
             where: { menuCategoryId: id, locationId },
           });
+        if (!disableMenuCategory)
+          return res.status(200).send("You should select something");
         await prisma.disabledLocationMenuCategory.delete({
           where: { id: disableMenuCategory?.id },
         });
@@ -62,11 +65,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: menuCategoryId },
     });
     if (!findMenuCategoryId) return res.status(400).send("Bad request");
-    const showMenuCategory = await prisma.menuCategory.update({
-      data: { isArchived: true },
-      where: { id: menuCategoryId },
-    });
-    return res.status(200).json(showMenuCategory);
+    return res.status(200).send("Every is okay");
   }
   return res.status(405).send("Invaild Method");
 };

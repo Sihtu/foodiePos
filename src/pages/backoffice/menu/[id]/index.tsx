@@ -1,5 +1,6 @@
 import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import DeleteDialog from "@/src/components/DeleteDialog";
+import MultipleSelect from "@/src/components/MultipleSelect";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { openSnackBar } from "@/src/store/slice/AppSnackBarSlice";
 import { updateMenuCatagory } from "@/src/store/slice/menuCatagorySlice";
@@ -29,9 +30,11 @@ const menuDatiles = () => {
   const menuDatilesId = Number(router.query.id);
   const showMenu = item.find((item) => item.id === menuDatilesId);
   const [updateData, setUpdateData] = useState<UpdateMenu>();
+  console.log(updateData);
   const { menuCategoryMenu } = useAppSelector((item) => item.menuCategoryMenu);
   const { menuCatagory } = useAppSelector((item) => item.menuCatagory);
   const [selected, setSelected] = useState<number[]>([]);
+  console.log(selected);
   const [open, setOpen] = useState<boolean>(false);
   const { disableLocationMenu } = useAppSelector(
     (item) => item.disableLocationMenu
@@ -85,7 +88,15 @@ const menuDatiles = () => {
     : true;
 
   const handleUpdate = () => {
-    
+    if (!updateData?.menuCategoryIds?.length) {
+      return dispatch(
+        openSnackBar({
+          type: "error",
+          message: "Please select at least one menuCategory",
+        })
+      );
+    }
+
     {
       updateData &&
         dispatch(
@@ -135,37 +146,13 @@ const menuDatiles = () => {
             }
             sx={{ m: 1 }}
           />
-          <FormControl sx={{ m: 1 }}>
-            <InputLabel>Menu Category</InputLabel>
-            <Select
-              value={selected}
-              onChange={(event) => {
-                const ticket = event.target.value as number[];
-                setSelected(ticket);
-              }}
-              multiple
-              renderValue={() => {
-                return selected
-                  .map(
-                    (itemId) =>
-                      menuCatagory.find(
-                        (menuCategory) => menuCategory.id === itemId
-                      ) as MenuCategory
-                  )
-                  .map((item) => item.name)
-                  .join(", ");
-              }}
-            >
-              {menuCatagory.map((item) => {
-                return (
-                  <MenuItem key={item.id} value={item.id}>
-                    <Checkbox checked={selected.includes(item.id)}></Checkbox>
-                    <ListItemText>{item.name}</ListItemText>
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+          <MultipleSelect
+            selected={selected}
+            setSelected={setSelected}
+            title={"Menu Category"}
+            item={menuCatagory}
+          />
+
           <FormControlLabel
             control={
               <Checkbox

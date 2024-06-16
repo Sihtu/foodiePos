@@ -1,11 +1,15 @@
-
 import BackOfficeLayout from "@/src/components/BackOfficeLayout";
+import ItemCard from "@/src/components/ItemCard";
 import NewAddonDialog from "@/src/components/NewAddonDialog";
+import { useAppSelector } from "@/src/store/hook";
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+
 const Addon = () => {
-    const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const { addons } = useAppSelector((item) => item.addon);
   return (
     <Box>
       <BackOfficeLayout>
@@ -19,7 +23,16 @@ const Addon = () => {
               New Addon
             </Button>
           </Box>
-          <NewAddonDialog setOpen={setOpen} open = {open}/>
+          <Box sx={{display: "flex" , flexWrap: "wrap"}}>
+            {addons.map((item) => (
+              <ItemCard
+                title={item.name}
+                icon={<WaterDropIcon />}
+                href={`/backoffice/addon/${item.id}`}
+              />
+            ))}
+          </Box>
+          <NewAddonDialog setOpen={setOpen} open={open} />
         </Box>
       </BackOfficeLayout>
     </Box>

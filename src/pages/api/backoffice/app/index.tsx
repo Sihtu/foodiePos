@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         //this is to show itemCard corret order
         const menuCatagory = await prisma.menuCategory.findMany({orderBy: [{id: "asc"}],
-          where: { companyId, isArchived: false },
+          where: { companyId},
         });
 
         const menuCatagoryIds = menuCatagory.map((item) => item.id);
@@ -60,8 +60,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const addon = await prisma.addon.findMany({
           where: { addonCategoryId: { in: AddonCatagoryIds } },
         });
-        const addonCatagory = await prisma.addonCategory.findFirst({
-          where: { id: { in: AddonCatagoryIds } },
+        const addonCatagory = await prisma.addonCategory.findMany({orderBy: [{id: "asc"}],
+          where: { id: { in: AddonCatagoryIds }, isArchived: false },
         });
         res.status(200).json({
           company,
@@ -139,6 +139,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           menuCatagory: [newMenuCatagory],
           menuCatagoryMenu: [newMenuCatagoryMenu],
           menuAddonCatagory: [newMenuAddonCatagory],
+          disableLocationMenuCategoryMenu: [],
+          disableLocationMenu: [],
         });
       }
     }
