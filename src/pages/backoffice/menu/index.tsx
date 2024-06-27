@@ -1,6 +1,6 @@
 import AppSnackBar from "@/src/components/AppSnackBar";
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import ItemCard from "@/src/components/ItemCard";
+import MenuCard from "@/src/components/MenuCard";
 import NewMenuDialog from "@/src/components/NewMenuDialog";
 import { useAppSelector } from "@/src/store/hook";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
@@ -8,14 +8,14 @@ import { Box, Button, Dialog, DialogContent, Typography } from "@mui/material";
 import { useState } from "react";
 
 const Menu = () => {
-  const { item } = useAppSelector((item) => item.menu);
+  const menus = useAppSelector((item) => item.menu.item);
   const { disableLocationMenu } = useAppSelector(
     (item) => item.disableLocationMenu
   );
   const { selectedLocation } = useAppSelector((item) => item.app);
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -26,22 +26,21 @@ const Menu = () => {
             Add New Menu
           </Button>
         </Box>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
           {disableLocationMenu &&
-            item.map((menu) => {
+            menus.map((item) => {
               const isDisable = disableLocationMenu.find(
                 (i) =>
-                  i.menuId === menu.id && i.locationId === selectedLocation?.id
+                  i.menuId === item.id && i.locationId === selectedLocation?.id
               )
                 ? false
                 : true;
               return (
-                <ItemCard
-                  key={menu.id}
-                  icon={<RestaurantIcon />}
-                  title={menu.name}
-                  href={`/backoffice/menu/${menu.id}`}
-                  isAvaliable={isDisable}
+                <MenuCard
+                menu={item}
+                isAvailable = {isDisable}
+                  key={item.id}
+                  href={`/backoffice/menu/${item.id}`}
                 />
               );
             })}
@@ -49,7 +48,7 @@ const Menu = () => {
         <NewMenuDialog open={open} setOpen={setOpen} />
         <AppSnackBar />
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

@@ -1,14 +1,25 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
-import { Box, Typography } from "@mui/material";
 
-const Setting = () => {
+import ItemCard from "@/src/components/ItemCard";
+import { useAppSelector } from "@/src/store/hook";
+import { Box } from "@mui/material";
+import StoreIcon from "@mui/icons-material/Store";
+
+const setting = () => {
+  const { company } = useAppSelector((item) => item.company);
+
   return (
     <Box>
-      <BackOfficeLayout>
-        <Typography variant="h3">Setting</Typography>
-      </BackOfficeLayout>
+      <Box sx={{ display: "flex", }}>
+        {company && (
+          <ItemCard 
+            icon={<StoreIcon />}
+            title={company.name}
+            href={`/backoffice/setting/${company.id}`}
+          />
+        )}
+      </Box>
     </Box>
   );
 };
 
-export default Setting;
+export default setting;

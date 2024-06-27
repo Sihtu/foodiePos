@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import ItemCard from "@/src/components/ItemCard";
 import NewAddonDialog from "@/src/components/NewAddonDialog";
 import { useAppSelector } from "@/src/store/hook";
@@ -12,7 +11,7 @@ const Addon = () => {
   const { addons } = useAppSelector((item) => item.addon);
   return (
     <Box>
-      <BackOfficeLayout>
+      <Box>
         <Box>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
@@ -34,7 +33,7 @@ const Addon = () => {
           </Box>
           <NewAddonDialog setOpen={setOpen} open={open} />
         </Box>
-      </BackOfficeLayout>
+      </Box>
     </Box>
   );
 };

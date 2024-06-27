@@ -9,10 +9,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (method === "GET") {
     res.status(200).send("Get method is okday");
   } else if (method === "POST") {
-    const { name, price, menuCategorIds } = req.body;
+    const { name, price, menuCategorIds, assetUrl } = req.body;
     const isValid = name && price !== undefined && menuCategorIds.length > 0;
     if (!isValid) return res.status(400).send("Bad request");
-    const menu = await prisma.menu.create({ data: { name, price } });
+    const menu = await prisma.menu.create({ data: { name, price,assetUrl } });
     const newMenuCategoryMenu = await prisma.$transaction(
       menuCategorIds.map((itemId: number) =>
         prisma.menuCategoryMenu.create({

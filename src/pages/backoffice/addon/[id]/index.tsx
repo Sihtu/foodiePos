@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import SingleSelected from "@/src/components/SingleSelect";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { openSnackBar } from "@/src/store/slice/AppSnackBarSlice";
@@ -43,9 +42,9 @@ const addonDetails = () => {
   }, [selected]);
   if (!updateData) {
     return (
-      <BackOfficeLayout>
+      <Box>
         <Typography variant="h3">Addon is not found!</Typography>
-      </BackOfficeLayout>
+      </Box>
     );
   }
   const handleUpdate = () => {
@@ -67,7 +66,7 @@ const addonDetails = () => {
   };
 
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button variant="outlined" color="error">
           Delete
@@ -107,7 +106,7 @@ const addonDetails = () => {
           Update
         </Button>
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

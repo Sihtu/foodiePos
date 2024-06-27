@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import ItemCard from "@/src/components/ItemCard";
 import NewAddonCatagory from "@/src/components/NewAddonCatagory";
 import { useAppSelector } from "@/src/store/hook";
@@ -11,7 +10,7 @@ const AddonCatagory = () => {
   const [open, setOpen] = useState(false);
   const { addonCategories } = useAppSelector((item) => item.addonCategory);
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -36,7 +35,7 @@ const AddonCatagory = () => {
         </Box>
         <NewAddonCatagory setOpen={setOpen} open={open} />
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

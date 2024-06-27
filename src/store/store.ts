@@ -11,6 +11,7 @@ import disableLocationMenus from "./slice/disableLocationMenu";
 import addonCategorySlice from "./slice/addonCategorySlice";
 import addonSlice from "./slice/addonSlice";
 import menuAddonCategorySlice from "./slice/menuAddonCategorySlice";
+import tableSlice from "./slice/tableSlice";
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +26,8 @@ export const store = configureStore({
     disableLocationMenu: disableLocationMenus,
     addonCategory: addonCategorySlice,
     addon: addonSlice,
-    menuAddonCategory: menuAddonCategorySlice
+    menuAddonCategory: menuAddonCategorySlice,
+    table: tableSlice
   },
 });
 

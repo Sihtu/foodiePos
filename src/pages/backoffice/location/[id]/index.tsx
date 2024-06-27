@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import DeleteDialog from "@/src/components/DeleteDialog";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { openSnackBar } from "@/src/store/slice/AppSnackBarSlice";
@@ -41,9 +40,9 @@ const locationDetails = () => {
 
   if (!showLocation) {
     return (
-      <BackOfficeLayout>
+      <Box>
         <Typography variant="h4">Location not found</Typography>
-      </BackOfficeLayout>
+      </Box>
     );
   }
 
@@ -72,7 +71,7 @@ const locationDetails = () => {
   };
 
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -148,7 +147,7 @@ const locationDetails = () => {
           }}
         />
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

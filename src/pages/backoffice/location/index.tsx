@@ -1,4 +1,4 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
+
 import ItemCard from "@/src/components/ItemCard";
 import NewLocationDialog from "@/src/components/NewLocationDialog";
 import { Box, Button, Typography } from "@mui/material";
@@ -12,7 +12,7 @@ const Location = () => {
   const { locations } = useAppSelector((item) => item.location);
   const [open, setOpen] = useState(false);
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -34,7 +34,7 @@ const Location = () => {
         </Box>
         <NewLocationDialog setOpen={setOpen} open={open} />
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

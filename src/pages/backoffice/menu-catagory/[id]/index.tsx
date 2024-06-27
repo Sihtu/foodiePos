@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import DeleteDialog from "@/src/components/DeleteDialog";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { openSnackBar } from "@/src/store/slice/AppSnackBarSlice";
@@ -77,15 +76,15 @@ const menuCatagoryDetails = () => {
 
   if (!showMenuCatagory) {
     return (
-      <BackOfficeLayout>
+      <Box>
         <Typography variant="h6">Menu Catagory is not found.</Typography>
-      </BackOfficeLayout>
+      </Box>
     );
   }
 
   return (
     <Box>
-      <BackOfficeLayout>
+      <Box>
         <Box display="flex" justifyContent="flex-end">
           <Button
             variant="outlined"
@@ -136,7 +135,7 @@ const menuCatagoryDetails = () => {
             router.push("/backoffice/menu-catagory");
           }}
         />
-      </BackOfficeLayout>
+      </Box>
     </Box>
   );
 };

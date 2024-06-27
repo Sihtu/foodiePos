@@ -12,6 +12,8 @@ import { setDisableLocationMenu } from "./disableLocationMenu";
 import { setAddon } from "./addonSlice";
 import { setAddonCategory } from "./addonCategorySlice";
 import { setMenuAddonCategory } from "./menuAddonCategorySlice";
+import { setTable } from "./tableSlice";
+import { UploadAssentProps } from "@/src/types/app";
 
 interface Int {
   init: boolean;
@@ -41,7 +43,8 @@ export const fetchAppData = createAsyncThunk(
       disableLocationMenu,
       addon,
       addonCatagory,
-      menuAddonCatagory
+      menuAddonCatagory,
+      table
     } = data;
     thunkApi.dispatch(setIsLoading(true));
     thunkApi.dispatch(setMenu(menu));
@@ -53,6 +56,7 @@ export const fetchAppData = createAsyncThunk(
     thunkApi.dispatch(setDisableLocationMenu(disableLocationMenu));
     thunkApi.dispatch(setMenuCategoryMenu(menuCatagoryMenu));
     thunkApi.dispatch(setLocation(location));
+    thunkApi.dispatch(setTable(table))
     thunkApi.dispatch(
       setDisableLocationMenuCategory(disableLocationMenuCategoryMenu)
     );
@@ -71,6 +75,19 @@ export const fetchAppData = createAsyncThunk(
     thunkApi.dispatch(setInt(true));
   }
 );
+
+export const uploadAsset = createAsyncThunk("app/uploadAsset",async (data: UploadAssentProps) => {
+  const {file, onSuccess} = data
+  const formData = new FormData()
+  formData.append("file", file)
+  console.log(formData)
+  const respond = await fetch(`${config.backOfficeUrl}/asset`,{
+    method: "POST",
+    body: formData
+  });
+  const {assetUrl} = await respond.json()
+  onSuccess && onSuccess(assetUrl)
+})
 const appSlice = createSlice({
   name: "appSlice",
   initialState,

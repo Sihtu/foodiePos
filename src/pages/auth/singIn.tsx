@@ -4,7 +4,7 @@ import { signIn } from "next-auth/react";
 
 const SingIn = () => {
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box
         sx={{
           display: "flex",
@@ -23,7 +23,7 @@ const SingIn = () => {
           Sing In With Google
         </Button>
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import DeleteDialog from "@/src/components/DeleteDialog";
 import MultipleSelect from "@/src/components/MultipleSelect";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
@@ -114,7 +113,7 @@ const menuDatiles = () => {
 
   return (
     <Box>
-      <BackOfficeLayout>
+      <Box>
         <Box display="flex" justifyContent="flex-end">
           <Button
             variant="outlined"
@@ -183,7 +182,7 @@ const menuDatiles = () => {
           title="Delete Menu"
           content="Are you sure to delete menu?"
         />
-      </BackOfficeLayout>
+      </Box>
     </Box>
   );
 };

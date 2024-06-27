@@ -35,7 +35,6 @@ export const CreateNewMenuCatagory = createAsyncThunk(
     const { menuCatagory } = data;
 
     newMenuCatagory.onSuccess && newMenuCatagory.onSuccess();
-    console.log("this is menu category form database", menuCatagory)
     thunkApi.dispatch(addMenuCatagory(menuCatagory));
   }
 );

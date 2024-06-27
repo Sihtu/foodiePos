@@ -16,7 +16,7 @@ const ItemCard = ({ icon, title, href, isAvaliable }: Props) => {
           elevation={2}
           sx={{
             width: 160,
-            height: 130,
+            height: "fit-content",
             display: "flex",
             m: 2,
             bgcolor: "#DDDDDD",

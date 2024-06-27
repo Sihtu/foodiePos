@@ -10,6 +10,7 @@ export interface NewMenuPram extends BaseOption{
     name : string
     price : number
     menuCategorIds : number[]
+    assetUrl?: string
 }
 
 //for deleteMenuSlice 

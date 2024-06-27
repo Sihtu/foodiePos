@@ -1,12 +1,12 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
+
 import { Box, Typography } from "@mui/material";
 
 const Order = () => {
   return (
     <Box>
-      <BackOfficeLayout>
+      <Box>
         <Typography>Order Page from BackOffice</Typography>
-      </BackOfficeLayout>
+      </Box>
     </Box>
   );
 };

@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import DeleteDialog from "@/src/components/DeleteDialog";
 import MultipleSelect from "@/src/components/MultipleSelect";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
@@ -91,7 +90,7 @@ const addonCatagoryDetails = () => {
   };
 
   return (
-    <BackOfficeLayout>
+    <Box>
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -135,7 +134,7 @@ const addonCatagoryDetails = () => {
           handleDelete={handleDelete}
         />
       </Box>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

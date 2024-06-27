@@ -24,7 +24,7 @@ const DeleteDialog = ({
 }: Props) => {
   return (
     <Dialog onClose={() => setOpen(false)} open={open}>
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle sx={{display: "flex",alignItems: "center"}}>{title}</DialogTitle>
       <DialogContent>{content}</DialogContent>
       <DialogActions>
         <Button variant="outlined">Cancle</Button>

@@ -1,4 +1,3 @@
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import { config } from "@/src/config";
 import { useAppDispatch } from "@/src/store/hook";
 import { fetchAppData } from "@/src/store/slice/appSlice";
@@ -11,9 +10,9 @@ const BackOffice = () => {
   const { data } = useSession();
   
   return (
-    <BackOfficeLayout>
+    <Box>
       <Typography variant="h3">Back Office {data?.user?.email}</Typography>
-    </BackOfficeLayout>
+    </Box>
   );
 };
 

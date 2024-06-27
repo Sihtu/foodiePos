@@ -28,7 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const locationIds = location.map((item) => item.id);
         const table = await prisma.table.findMany({
-          where: { locationId: { in: locationIds } },
+          where: { locationId: { in: locationIds } , isArchived: false},
         });
         //this is to show itemCard corret order
         const menuCatagory = await prisma.menuCategory.findMany({orderBy: [{id: "asc"}],

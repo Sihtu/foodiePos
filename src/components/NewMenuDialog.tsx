@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -23,6 +24,8 @@ import AppSnackBar from "./AppSnackBar";
 import { MenuCategory } from "@prisma/client";
 import { NewMenuPram } from "../types/menu";
 import MultipleSelect from "./MultipleSelect";
+import { uploadAsset } from "../store/slice/appSlice";
+import FileDropZone from "./FileDropZone";
 
 interface Props {
   open: boolean;
@@ -32,7 +35,7 @@ interface Props {
 const NewMenuDialog = ({ open, setOpen }: Props) => {
   const { menuCatagory } = useAppSelector((item) => item.menuCatagory);
   const { type, message } = useAppSelector((store) => store.snackBar);
-
+  const [menuImage, setMenuImage] = useState<File>();
   const dispatch = useAppDispatch();
   const [newMenu, setNewMenu] = useState<NewMenuPram>({
     name: "",
@@ -43,25 +46,36 @@ const NewMenuDialog = ({ open, setOpen }: Props) => {
   useEffect(() => {
     setNewMenu({ ...newMenu, menuCategorIds: selected });
   }, [selected]);
-  const handleClick = () => {
+  const handleCreate = () => {
     //vaild
     const isVild = newMenu.name && newMenu.menuCategorIds.length > 0;
     if (!isVild) {
       console.log(newMenu);
       return;
     }
-    dispatch(
-      createMenu({
-        ...newMenu,
-        onSuccess: () =>
-          dispatch(
-            openSnackBar({
-              type: "success",
-              message: "It was created successfully",
-            })
-          ),
-      })
-    );
+    if (menuImage) {
+      dispatch(
+        uploadAsset({
+          file: menuImage,
+          onSuccess: (assetUrl) => {
+            newMenu.assetUrl = assetUrl;
+            dispatch(
+              createMenu({
+                ...newMenu,
+                onSuccess: () =>
+                  dispatch(
+                    openSnackBar({
+                      type: "success",
+                      message: "It was created successfully",
+                    })
+                  ),
+              })
+            );
+          },
+        })
+      );
+    }
+
     setOpen(false);
   };
   return (
@@ -79,14 +93,14 @@ const NewMenuDialog = ({ open, setOpen }: Props) => {
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <TextField
               placeholder="name"
-              sx={{ padding: 1 }}
+              sx={{ margin: 1 }}
               onChange={(event) =>
                 setNewMenu({ ...newMenu, name: event.target.value })
               }
             />
             <TextField
               placeholder="price"
-              sx={{ padding: 1 }}
+              sx={{ margin: 1 }}
               onChange={(event) =>
                 setNewMenu({ ...newMenu, price: Number(event.target.value) })
               }
@@ -97,6 +111,9 @@ const NewMenuDialog = ({ open, setOpen }: Props) => {
               setSelected={setSelected}
               item={menuCatagory}
             />
+            <Box>
+              <FileDropZone onDrop={(file) => setMenuImage(file[0])} />
+            </Box>
           </Box>
         </DialogContent>
         <DialogActions>
@@ -104,7 +121,7 @@ const NewMenuDialog = ({ open, setOpen }: Props) => {
           <Button
             sx={{ bgcolor: "#627254", "&:hover": { bgcolor: "#78876a" } }}
             variant="contained"
-            onClick={() => handleClick()}
+            onClick={() => handleCreate()}
           >
             Create
           </Button>

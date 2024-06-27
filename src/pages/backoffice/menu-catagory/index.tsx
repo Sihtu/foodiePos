@@ -1,5 +1,4 @@
 import AppSnackBar from "@/src/components/AppSnackBar";
-import BackOfficeLayout from "@/src/components/BackOfficeLayout";
 import ItemCard from "@/src/components/ItemCard";
 import NewMenuCatagoryDialog from "@/src/components/NewMenuCatagoryDialog";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
@@ -30,7 +29,7 @@ const MenuCatagory = () => {
   });
   return (
     <Box>
-      <BackOfficeLayout>
+      <Box>
         <Box>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
@@ -69,7 +68,7 @@ const MenuCatagory = () => {
           />
           <AppSnackBar />
         </Box>
-      </BackOfficeLayout>
+      </Box>
     </Box>
   );
 };
