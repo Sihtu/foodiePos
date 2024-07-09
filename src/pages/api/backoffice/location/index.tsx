@@ -11,7 +11,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (method === "POST") {
     const { name, street, township, city, companyId } = req.body;
     const Vaild = name && street && township && city && companyId;
-    console.log(Vaild);
     if (!Vaild) return res.status(401).send("Bad request");
     const location = await prisma.location.create({
       data: { name, street, township, city, companyId },

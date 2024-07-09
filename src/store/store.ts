@@ -12,6 +12,8 @@ import addonCategorySlice from "./slice/addonCategorySlice";
 import addonSlice from "./slice/addonSlice";
 import menuAddonCategorySlice from "./slice/menuAddonCategorySlice";
 import tableSlice from "./slice/tableSlice";
+import order from "./slice/orderSlice";
+import cartSlice from "./slice/cartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -27,7 +29,9 @@ export const store = configureStore({
     addonCategory: addonCategorySlice,
     addon: addonSlice,
     menuAddonCategory: menuAddonCategorySlice,
-    table: tableSlice
+    table: tableSlice,
+    order: order,
+    cart: cartSlice,
   },
 });
 

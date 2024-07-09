@@ -51,7 +51,6 @@ export const updateAddonCategory = createAsyncThunk(
     });
     const { addonCategory, menuAddonCategories } = await respond.json();
 
-    console.log(addonCategory);
     thunkApi.dispatch(replaceAddonCategory(addonCategory));
     thunkApi.dispatch(setMenuAddonCategory(menuAddonCategories));
     onSuccess && onSuccess();

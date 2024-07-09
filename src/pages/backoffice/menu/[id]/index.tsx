@@ -29,11 +29,9 @@ const menuDatiles = () => {
   const menuDatilesId = Number(router.query.id);
   const showMenu = item.find((item) => item.id === menuDatilesId);
   const [updateData, setUpdateData] = useState<UpdateMenu>();
-  console.log(updateData);
   const { menuCategoryMenu } = useAppSelector((item) => item.menuCategoryMenu);
   const { menuCatagory } = useAppSelector((item) => item.menuCatagory);
   const [selected, setSelected] = useState<number[]>([]);
-  console.log(selected);
   const [open, setOpen] = useState<boolean>(false);
   const { disableLocationMenu } = useAppSelector(
     (item) => item.disableLocationMenu

@@ -13,7 +13,10 @@ import { setAddon } from "./addonSlice";
 import { setAddonCategory } from "./addonCategorySlice";
 import { setMenuAddonCategory } from "./menuAddonCategorySlice";
 import { setTable } from "./tableSlice";
-import { UploadAssentProps } from "@/src/types/app";
+import { FetchAppDataProps, UploadAssentProps } from "@/src/types/app";
+import { setOrder } from "./orderSlice";
+import { selectClasses } from "@mui/material";
+import { LocationOn } from "@mui/icons-material";
 
 interface Int {
   init: boolean;
@@ -30,8 +33,12 @@ const initialState: Int = {
 
 export const fetchAppData = createAsyncThunk(
   "appSlice/fetchAppData",
-  async (_, thunkApi) => {
-    const respond = await fetch(`${config.backOfficeUrl}/app`);
+  async (option: FetchAppDataProps, thunkApi) => {
+    const { tableId } = option;
+    const apiUrl = tableId
+      ? `${config.orderAppApiUrl}/app?tableId=${tableId}`
+      : `${config.backOfficeUrl}/app`;
+    const respond = await fetch(apiUrl);
     const data = await respond.json();
     const {
       menu,
@@ -44,50 +51,66 @@ export const fetchAppData = createAsyncThunk(
       addon,
       addonCatagory,
       menuAddonCatagory,
-      table
+      table,
+      order,
     } = data;
     thunkApi.dispatch(setIsLoading(true));
     thunkApi.dispatch(setMenu(menu));
     thunkApi.dispatch(setAddon(addon));
     thunkApi.dispatch(setAddonCategory(addonCatagory));
-    thunkApi.dispatch(setMenuAddonCategory(menuAddonCatagory))
+    thunkApi.dispatch(setMenuAddonCategory(menuAddonCatagory));
     thunkApi.dispatch(setMenuCatagory(menuCatagory));
     thunkApi.dispatch(setCompany(company));
     thunkApi.dispatch(setDisableLocationMenu(disableLocationMenu));
     thunkApi.dispatch(setMenuCategoryMenu(menuCatagoryMenu));
     thunkApi.dispatch(setLocation(location));
-    thunkApi.dispatch(setTable(table))
+    thunkApi.dispatch(setTable(table));
     thunkApi.dispatch(
       setDisableLocationMenuCategory(disableLocationMenuCategoryMenu)
     );
 
     thunkApi.dispatch(setIsLoading(false));
-    const getsetLocation = localStorage.getItem("setLocationId");
-    if (getsetLocation) {
+    const getSetLocation = localStorage.getItem("setLocationId");
+
+    if (getSetLocation) {
+      const ownLocation =
+        getSetLocation &&
+        location.find((item: any) => item.id === Number(getSetLocation));
+      if (!ownLocation) {
+        localStorage.removeItem("setLocationId");
+        localStorage.setItem("setLocationId", String(location[0]));
+        thunkApi.dispatch(setSelectedLocation(location[0]))
+        return
+      }
       const getLocation = location.find(
-        (item: any) => item.id === Number(getsetLocation)
+        (item: any) => item.id === Number(getSetLocation)
       ) as Location;
       thunkApi.dispatch(setSelectedLocation(getLocation));
     } else {
+      const locationId = location[0].id;
+      localStorage.setItem("setLocationId", locationId);
       thunkApi.dispatch(setSelectedLocation(location[0]));
     }
 
     thunkApi.dispatch(setInt(true));
+    thunkApi.dispatch(setOrder(order));
   }
 );
 
-export const uploadAsset = createAsyncThunk("app/uploadAsset",async (data: UploadAssentProps) => {
-  const {file, onSuccess} = data
-  const formData = new FormData()
-  formData.append("file", file)
-  console.log(formData)
-  const respond = await fetch(`${config.backOfficeUrl}/asset`,{
-    method: "POST",
-    body: formData
-  });
-  const {assetUrl} = await respond.json()
-  onSuccess && onSuccess(assetUrl)
-})
+export const uploadAsset = createAsyncThunk(
+  "app/uploadAsset",
+  async (data: UploadAssentProps) => {
+    const { file, onSuccess } = data;
+    const formData = new FormData();
+    formData.append("file", file);
+    const respond = await fetch(`${config.backOfficeUrl}/asset`, {
+      method: "POST",
+      body: formData,
+    });
+    const { assetUrl } = await respond.json();
+    onSuccess && onSuccess(assetUrl);
+  }
+);
 const appSlice = createSlice({
   name: "appSlice",
   initialState,

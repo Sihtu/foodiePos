@@ -9,10 +9,11 @@ import {
 import { UpdateAddonCategory } from "@/src/types/addonCategory";
 import { SellSharp } from "@mui/icons-material";
 import {
+  Checkbox,
   Box,
   Button,
-  Checkbox,
   FormControl,
+  FormControlLabel,
   InputLabel,
   ListItemText,
   MenuItem,
@@ -89,6 +90,13 @@ const addonCatagoryDetails = () => {
     setOpen(false);
   };
 
+  if(!updateData){
+    return(
+      <Box>
+        Backoffice can't show!
+      </Box>
+    )
+  }
   return (
     <Box>
       <Box>
@@ -118,6 +126,13 @@ const addonCatagoryDetails = () => {
             title={"Menu"}
             item={menu}
           />
+
+          <FormControlLabel
+            control={<Checkbox defaultChecked={updateData?.isRequired} />}
+            onChange={(event, value)=> setUpdateData(updateData&& {...updateData, isRequired: value})}
+            label="isRequired"
+          />
+
           <Button
             sx={{ width: "fit-content", mt: 5 }}
             variant="contained"

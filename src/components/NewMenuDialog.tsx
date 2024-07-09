@@ -50,7 +50,6 @@ const NewMenuDialog = ({ open, setOpen }: Props) => {
     //vaild
     const isVild = newMenu.name && newMenu.menuCategorIds.length > 0;
     if (!isVild) {
-      console.log(newMenu);
       return;
     }
     if (menuImage) {

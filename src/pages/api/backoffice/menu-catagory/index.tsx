@@ -15,7 +15,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const menuCatagory = await prisma.menuCategory.create({
       data: { name, isAvailable, companyId },
     });
-    console.log(menuCatagory)
     return res.status(200).json({ menuCatagory });
   } else if (method === "PUT") {
     const { id, isAvailable, locationId, ...payload } = req.body;

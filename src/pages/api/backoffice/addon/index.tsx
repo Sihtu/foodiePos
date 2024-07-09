@@ -10,7 +10,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).send("Okay Get Addon");
   } else if (method === "POST") {
     const { name, price, addonCategoryId } = req.body;
-    console.log(req.body);
     const isVaild = name && addonCategoryId;
     if (!isVaild) return res.status(401).send("This is bad Request");
     const addon = await prisma.addon.create({
@@ -19,7 +18,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ addon });
   } else if (method === "PUT") {
-    console.log(req.body);
     const { id, name, price, addonCategoryId } = req.body;
     const existAddon = await prisma.addon.findFirst({ where: { id } });
     if (!existAddon) return res.status(401).send("Bad Request");

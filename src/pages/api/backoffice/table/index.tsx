@@ -18,7 +18,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const assetUrls = await qrCodeImageUpload(newTable.id)
-    console.log(assetUrls)
     newTable = await prisma.table.update({data: {assetUrl: assetUrls}, where: {id: newTable.id}})
     const table = await prisma.table.findMany({ where: { locationId } });
     

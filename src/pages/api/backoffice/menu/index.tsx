@@ -32,7 +32,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       menuCategoryIds,
       ...payload
     } = req.body;
-    console.log(menuCategoryIds);
     if (locationId && isAvailable !== undefined) {
       if (isAvailable === false) {
         await prisma.disabledLocationMenu.create({

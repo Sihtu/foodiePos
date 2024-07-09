@@ -23,11 +23,8 @@ const addonDetails = () => {
   const router = useRouter();
   const addonDetailsId = Number(router.query.id);
   const showAddon = addons.find((item) => item.id === addonDetailsId);
-  console.log("this is showAddon", showAddon);
   const [updateData, setUpdateData] = useState<UpdateAddon>();
-  console.log("this is update data", updateData);
   const [selected, setSelected] = useState<number>();
-  console.log("this is selected", selected);
   useEffect(() => {
     if (showAddon) {
       setUpdateData(showAddon);
