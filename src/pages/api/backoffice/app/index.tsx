@@ -8,6 +8,7 @@ import { getSession, useSession } from "next-auth/react";
 //serverless function
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
+  console.log(session)
   if (session) {
     const { user } = session;
     if (user) {
@@ -63,6 +64,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const addonCatagory = await prisma.addonCategory.findMany({orderBy: [{id: "asc"}],
           where: { id: { in: AddonCatagoryIds }, isArchived: false },
         });
+        const order = await prisma.order.findMany({where: {tableId: {in: table.map(item=> item.id)}}})
+        console.log(order)
         res.status(200).json({
           company,
           location,
@@ -74,7 +77,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           menuCatagoryMenu,
           menuAddonCatagory,
           disableLocationMenuCategoryMenu,
-          disableLocationMenu
+          disableLocationMenu,
+          order
         });
       } else {
         const newCompany = await prisma.company.create({
@@ -141,6 +145,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           menuAddonCatagory: [newMenuAddonCatagory],
           disableLocationMenuCategoryMenu: [],
           disableLocationMenu: [],
+          order: []
         });
       }
     }

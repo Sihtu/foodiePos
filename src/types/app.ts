@@ -7,3 +7,6 @@ export interface UploadAssentProps extends BaseOption {
 export interface FetchAppDataProps{
     tableId?: number
 }
+
+export  type Theme = "light" | "dark"
+

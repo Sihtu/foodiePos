@@ -13,7 +13,7 @@ const TopBar = () => {
   const {selectedLocation} = useAppSelector((item)=> item.app)
   const { data } = useSession();
   return (
-      <AppBar position="static" sx={{ height: "10%", bgcolor: "#627254" }}>
+      <AppBar position="static" sx={{ height: "10%", }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 , display: 'flex', justifyContent: "center"}}>
             {selectedLocation?.name}

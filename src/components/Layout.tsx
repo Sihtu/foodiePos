@@ -16,7 +16,7 @@ const Layout = ({ children }: Props) => {
   const isOrder = tableId;
   const { data } = useSession();
   if (isBackoffice) {
-    return <BackOfficeLayout>{children}</BackOfficeLayout>;
+    return <BackOfficeLayout >{children}</BackOfficeLayout>;
   }
   if (isOrder) {
     return <OrderAppLayout>{children}</OrderAppLayout>;

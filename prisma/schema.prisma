@@ -160,6 +160,7 @@ model Order {
   addon      Addon?      @relation(fields: [addonId], references: [id])
   menu       Menu        @relation(fields: [menuId], references: [id])
   table      Table       @relation(fields: [tableId], references: [id])
+  itemId String
 }
 
 enum ORDERSTATUS {

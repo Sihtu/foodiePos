@@ -19,7 +19,6 @@ const ItemCard = ({ icon, title, href, isAvaliable }: Props) => {
             height: "fit-content",
             display: "flex",
             m: 2,
-            bgcolor: "#DDDDDD",
           }}
         >
           <Box

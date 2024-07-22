@@ -15,7 +15,6 @@ const SingIn = () => {
       >
         <Button
           variant="contained"
-          sx={{ bgcolor: "#627254", "&:hover": { bgcolor: "#78876a" } }}
           onClick={() => {
             signIn("google", { callbackUrl: "/backoffice" });
           }}

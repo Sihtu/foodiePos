@@ -1,19 +1,28 @@
-
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
+import { setThemes } from "@/src/store/slice/appSlice";
 import { openSnackBar } from "@/src/store/slice/AppSnackBarSlice";
 import { updatedCompany } from "@/src/store/slice/companySlice";
 import { UpdateCompany } from "@/src/types/company";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormControlLabel,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const SettingDetails = () => {
   const dispatch = useAppDispatch();
+  const { theme } = useAppSelector((item) => item.app);
   const [updateData, setUpdateData] = useState<UpdateCompany>();
   const { company } = useAppSelector((item) => item.company);
-  const router = useRouter()
-  const SettingDetailsId = Number(router.query.id)
-  const showCompany = company?.id === SettingDetailsId
+  const router = useRouter();
+  const SettingDetailsId = Number(router.query.id);
+  const showCompany = company?.id === SettingDetailsId;
 
   useEffect(() => {
     if (showCompany) {
@@ -49,6 +58,23 @@ const SettingDetails = () => {
 
   return (
     <Box>
+      <Box>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={theme === "dark"}
+              onChange={(event, value) => {
+                console.log(value)
+                const theme = value? "dark" : "light"
+                console.log(theme)
+                dispatch(setThemes(theme))
+                localStorage.setItem("theme", theme)
+              }}
+            />
+          }
+          label={"Dark Moode"}
+        />
+      </Box>
       <Box>
         <Box sx={{ display: "flex", flexDirection: "column", width: 300 }}>
           <TextField

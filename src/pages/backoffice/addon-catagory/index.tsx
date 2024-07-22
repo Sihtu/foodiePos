@@ -14,7 +14,6 @@ const AddonCatagory = () => {
       <Box>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
-            sx={{ bgcolor: "#627254", "&:hover": { bgcolor: "#78876a" } }}
             variant="contained"
             onClick={() => setOpen(true)}
           >

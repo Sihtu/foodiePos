@@ -13,7 +13,7 @@ import { setAddon } from "./addonSlice";
 import { setAddonCategory } from "./addonCategorySlice";
 import { setMenuAddonCategory } from "./menuAddonCategorySlice";
 import { setTable } from "./tableSlice";
-import { FetchAppDataProps, UploadAssentProps } from "@/src/types/app";
+import { FetchAppDataProps, Theme, UploadAssentProps } from "@/src/types/app";
 import { setOrder } from "./orderSlice";
 import { selectClasses } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
@@ -21,12 +21,14 @@ import { LocationOn } from "@mui/icons-material";
 interface Int {
   init: boolean;
   selectedLocation: Location | null;
+  theme: Theme
   isLoading: boolean;
   error: boolean;
 }
 const initialState: Int = {
   init: false,
   selectedLocation: null,
+  theme: "light",
   isLoading: false,
   error: false,
 };
@@ -87,13 +89,14 @@ export const fetchAppData = createAsyncThunk(
       ) as Location;
       thunkApi.dispatch(setSelectedLocation(getLocation));
     } else {
-      const locationId = location[0].id;
+      const locationId =String( location[0].id);
       localStorage.setItem("setLocationId", locationId);
       thunkApi.dispatch(setSelectedLocation(location[0]));
     }
 
     thunkApi.dispatch(setInt(true));
     thunkApi.dispatch(setOrder(order));
+    thunkApi.dispatch(setThemes(localStorage.getItem("theme") as Theme)?? "light")
   }
 );
 
@@ -124,8 +127,11 @@ const appSlice = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    setThemes: (state, action: PayloadAction<Theme>) => {
+      state.theme = action.payload
+    }
   },
 });
 
-export const { setInt, setSelectedLocation, setIsLoading } = appSlice.actions;
+export const { setInt, setSelectedLocation, setIsLoading, setThemes } = appSlice.actions;
 export default appSlice.reducer;

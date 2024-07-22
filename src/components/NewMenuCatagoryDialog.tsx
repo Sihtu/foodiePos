@@ -84,9 +84,8 @@ const NewMenuCatagoryDialog = ({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button sx={{ color: "#627254" }}>Cancle</Button>
+          <Button >Cancle</Button>
           <Button
-            sx={{ bgcolor: "#627254", "&:hover": { bgcolor: "#78876a" } }}
             variant="contained"
             onClick={() => handleCreate()}
           >

@@ -42,7 +42,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({
         company,
         location,
-        table,
+        table: [table],
         addonCatagory,
         addon,
         menu,

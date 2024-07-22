@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
 import { ReactNode, useEffect } from "react";
-import { useAppDispatch } from "../store/hook";
-import { fetchAppData } from "../store/slice/appSlice";
+import { useAppDispatch, useAppSelector } from "../store/hook";
+import { fetchAppData, setThemes } from "../store/slice/appSlice";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import OrderAppHeader from "./OrderAppHeader";
 import OrderAppFooter from "./OrderAppFooter";
+import { Theme } from "../types/app";
 
 interface Props {
   children: ReactNode;
@@ -19,16 +20,36 @@ const OrderAppLayout = ({ children }: Props) => {
   }, [tableId]);
 
   if (!tableId) return null;
+  
+  const {theme} = useAppSelector((item)=> item.app)
+  const themeName = localStorage.getItem("theme") as Theme
+  if(themeName){
+
+      dispatch(setThemes(themeName))
+  }
 
   return (
-    <Box>
-      <Box sx={{ minHeight: "10vh", height: "auto", pb: { xs: 10, md: 0 } }}>
-        <OrderAppHeader />
-      </Box>
-      <Box sx={{display: "flex",flexDirection: "column",  alignItems: "center"}}>{children}</Box>
-      <Box>
-        <OrderAppFooter></OrderAppFooter>
-      </Box>
+    <Box
+      sx={{
+        minHeight: "150vh",
+        height: "100%",
+        pb: { xs: 10, md: 0 },
+      }}
+    >
+      <OrderAppHeader />
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          overflow: "auto",
+        }}
+      >
+        {children}
+      </Box >
+      <Box sx={{mt: 10}}>
+      <OrderAppFooter /></Box>
     </Box>
   );
 };

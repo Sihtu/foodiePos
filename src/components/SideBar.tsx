@@ -16,6 +16,7 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import { Palette } from "@mui/icons-material";
 
 const menuItem = [
   { id: 1, name: "menu", route: "/backoffice/menu", icon: <LocalDiningIcon /> },
@@ -33,7 +34,7 @@ const menuItem = [
 ];
 const SideBar = () => {
   return (
-    <Box sx={{ bgcolor: "#76885B", height: "100vh", width: 260 }}>
+    <Box sx={{ bgcolor: "primary.main", height: "100vh", width: 260 }}>
       <List>
         {menuItem.map((item) => (
           <Link key={item.id} href={item.route} style={{ textDecoration: "none" }}>

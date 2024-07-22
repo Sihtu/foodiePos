@@ -29,12 +29,12 @@ const BackOfficeLayout = ({ children }: Props) => {
   }, [message]);
 
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: "100vh", }}>
       <TopBar />
-      <Box sx={{ display: "flex", bgcolor: "#DDDDDD", height: "90%" }}>
+      <Box sx={{ display: "flex", height: "90%" }}>
         {data && <SideBar />}
 
-        <Box sx={{ padding: 1, width: "100%", }}>{children}</Box>
+        <Box sx={{ padding: 1, width: "100%", bgcolor: "info.main", }}>{children}</Box>
       </Box>
       <AppSnackBar/>
     </Box>

@@ -20,10 +20,9 @@ const menuDetails = () => {
 
   const { addons } = useAppSelector((item) => item.addon);
   const router = useRouter();
-  const cartId = router.query.cartItemId;
-  console.log(cartId);
+  const cartSliceId = router.query.cartItemId;
   const { item } = useAppSelector((item) => item.cart);
-  const vaildCart = item.find((item) => item.id === cartId);
+  const vaildCart = item.find((item) => item.id === cartSliceId);
   useEffect(() => {
     if (vaildCart) {
       setSelectedAddon(vaildCart.addon);
@@ -57,7 +56,6 @@ const menuDetails = () => {
     const requireAddonCategory = addonCategories.filter(
       (item) => item.isRequired
     ).length;
-    console.log(requireAddonCategory);
 
     const selectedRequireAddonCategory = selectedAddon.filter((item) => {
       const addonCategoryIds = item.addonCategoryId;
@@ -68,13 +66,12 @@ const menuDetails = () => {
     }).length;
 
     const disable = requireAddonCategory !== selectedRequireAddonCategory;
-    console.log("This is diable", disable);
     setIsDisable(disable);
   }, [selectedAddon]);
 
   const handleCreateNewCart = () => {
     const newCart: CartItem = {
-      id: nanoid(7),
+      id: cartSliceId ? String(cartSliceId) : nanoid(7),
       menu: vaildMenu,
       addon: selectedAddon,
       quantity: number,

@@ -2,18 +2,43 @@ import OrderAppHeader from "@/src/components/OrderAppHeader";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { CartItem } from "@/src/types/cart";
 import { getTotalPrice } from "@/src/utils/general";
-import { Avatar, Box, Divider, Typography } from "@mui/material";
-import { Addon } from "@prisma/client";
+import { Avatar, Box, Button, Divider, Typography } from "@mui/material";
+import { Addon, Order } from "@prisma/client";
 import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { removeFromCart } from "@/src/store/slice/cartSlice";
 import { useRouter } from "next/router";
+import OrderAppLayout from "@/src/components/OrderAppLayout";
+import { createOrder } from "@/src/store/slice/orderSlice";
+import { CreateOrder } from "@/src/types/order";
 
 const cart = () => {
   const { item } = useAppSelector((item) => item.cart);
-  const router = useRouter()
-const dispatch = useAppDispatch()
+  const router = useRouter();
+  const tableId = Number(router.query.tableId);
+  const dispatch = useAppDispatch();
+  const vaild = item;
+
+  if (item.length === 0) {
+    return <Box>Your cart is empty now!</Box>;
+  }
+
+  const handleCreateOrder = () => {
+    dispatch(
+      createOrder({
+        tableId,
+        cartItems: item,
+        onSuccess: (orders: Order[]) => {
+          router.push({
+            pathname: `/order/active-order/${orders[0].orderSeq}`,
+            query: { tableId },
+          });
+        },
+      })
+    );
+  };
+
   const renderAddon = (addon: Addon[]) => {
     if (!addon.length) return null;
     return addon.map((item) => {
@@ -22,7 +47,8 @@ const dispatch = useAppDispatch()
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            width: "40%",
+            width: "100%",
+            mb: 2,
           }}
         >
           <Box>{item.name}</Box>
@@ -37,47 +63,56 @@ const dispatch = useAppDispatch()
         return (
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              width: 500,
             }}
           >
-            <Box>
+            <Box sx={{ display: "flex", width: "100%", mb: 2 }}>
               <Avatar
                 sx={{
                   width: 25,
                   height: 25,
                   mr: 1,
-                  backgroundColor: "#1B9C85",
                 }}
               >
                 {item.quantity}
               </Avatar>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <Typography>{item.menu.name} </Typography>
+                <Typography>{item.menu.price}</Typography>
+              </Box>
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "40%",
-              }}
-            >
-              <Box>{item.menu.name}</Box>
-              <Box>{item.menu.price}</Box>
-            </Box>
+            <Box sx={{ marginLeft: 4.5, mb: 2 }}>{renderAddon(item.addon)}</Box>
 
-            {renderAddon(item.addon)}
-            <Box sx={{display: "flex", justifyContent: "flexe"}}>
-                <EditIcon onClick={()=> router.push({
-                  pathname: `/order/menu/${item.menu.id}`,query: {...router.query, cartItemId: item.id}
-                })}/>
-                <DeleteIcon onClick={()=> dispatch(removeFromCart(item))}/>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Box>
+                <EditIcon
+                  onClick={() =>
+                    router.push({
+                      pathname: `/order/menu/${item.menu.id}`,
+                      query: { ...router.query, cartItemId: item.id },
+                    })
+                  }
+                />
+                <DeleteIcon onClick={() => dispatch(removeFromCart(item))} />
+              </Box>
             </Box>
           </Box>
         );
       })}
       <Divider />
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mr: 50, pt: 5 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
         <Typography>Total : {getTotalPrice(item)}</Typography>
+      </Box>
+      <Box>
+        <Button variant="contained" onClick={() => handleCreateOrder()}>
+          CONFIRM ORDER
+        </Button>
       </Box>
     </Box>
   );

@@ -8,9 +8,10 @@ import HomeIcon from "@mui/icons-material/Home";
 
 const OrderAppHeader = () => {
   const { item } = useAppSelector((item) => item.cart);
+
   const { company } = useAppSelector((item) => item.company);
   const router = useRouter();
-
+  const cartSliceId = router.query.cartItemId;
   const cart = router.pathname.includes("cart");
 
   return (
@@ -18,13 +19,19 @@ const OrderAppHeader = () => {
       sx={{ position: "relative", display: "flex", justifyContent: "center" }}
     >
       <Box sx={{ position: "absolute", textAlign: "center", mt: 4 }}>
-        <Typography sx={{ fontWeight: "bold", fontSize: 19 }}>
-          {company?.name}
-        </Typography>
-        <Typography sx={{ opacity: 0.7 }}>
-          {company?.street} <br />
-          {company?.township},{company?.township}
-        </Typography>
+        {cartSliceId ? (
+          "Review Your Menu"
+        ) : (
+          <Box>
+            <Typography sx={{ fontWeight: "bold", fontSize: 19 }}>
+              {company?.name}
+            </Typography>
+            <Typography sx={{ opacity: 0.7 }}>
+              {company?.street} <br />
+              {company?.township},{company?.township}
+            </Typography>
+          </Box>
+        )}
       </Box>
       <Box sx={{ position: "absolute", right: 50, top: 25 }}>
         {cart ? (
@@ -50,12 +57,14 @@ const OrderAppHeader = () => {
         )}
       </Box>
       <Image
+      
         src="/order_app_header.svg"
         alt="order image header"
         sizes="100vw"
+        
         width={0}
         height={0}
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: "100%", height: "auto", color: "primary.main",backgroundColor: "primary.main" }}
       />
     </Box>
   );
