@@ -1,4 +1,3 @@
-
 import { ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode } from "react";
 import { useAppSelector } from "../store/hook";
@@ -7,7 +6,7 @@ interface Props {
   children: ReactNode;
 }
 
-  const  ThemeProviderWrapper=({ children }: Props)=>  {
+const ThemeProviderWrapper = ({ children }: Props) => {
   const { theme: appTheme } = useAppSelector((state) => state.app);
   const getDesignTokens = () => {
     if (appTheme === "light") {
@@ -49,6 +48,6 @@ interface Props {
 
   const theme = createTheme(getDesignTokens());
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-}
+};
 
-export default ThemeProviderWrapper
+export default ThemeProviderWrapper;
