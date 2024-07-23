@@ -24,7 +24,7 @@ const Location = () => {
         </Box>
         <Box sx={{ display: "flex" }}>
           {locations.map((item) => (
-            <ItemCard
+            <ItemCard key={item.id}
               title={item.name}
               href={`/backoffice/location/${item.id}`}
               icon={<LocationOnIcon />}

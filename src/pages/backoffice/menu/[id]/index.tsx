@@ -1,4 +1,6 @@
 import DeleteDialog from "@/src/components/DeleteDialog";
+
+import { useEffect, useState } from "react";
 import MultipleSelect from "@/src/components/MultipleSelect";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { openSnackBar } from "@/src/store/slice/AppSnackBarSlice";
@@ -20,9 +22,8 @@ import {
 } from "@mui/material";
 import { Menu, MenuCategory } from "@prisma/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
-const menuDatiles = () => {
+const MenuDatiles = () => {
   const dispatch = useAppDispatch();
   const { item } = useAppSelector((item) => item.menu);
   const router = useRouter();
@@ -60,8 +61,15 @@ const menuDatiles = () => {
       ) as MenuCategory;
       return menuCategory.id;
     });
+  const isAvailabel = disableLocationMenu.find(
+    (item) =>
+      item.menuId === menuDatilesId && item.locationId === selectedLocation?.id
+  )
+    ? false
+    : true;   
 
-  useEffect(() => {
+    
+useEffect(() => {
     if (showMenu) {
       setUpdateData(showMenu);
       setSelected(selectedMenuCategoryIds);
@@ -77,12 +85,13 @@ const menuDatiles = () => {
       });
     }
   }, [selected]);
-  const isAvailabel = disableLocationMenu.find(
-    (item) =>
-      item.menuId === menuDatilesId && item.locationId === selectedLocation?.id
-  )
-    ? false
-    : true;
+  if (!updateData) {
+    return (
+      <Box>
+        <Typography>Menu not Found</Typography>
+      </Box>
+    );
+  }
 
   const handleUpdate = () => {
     if (!updateData?.menuCategoryIds?.length) {
@@ -185,4 +194,4 @@ const menuDatiles = () => {
   );
 };
 
-export default menuDatiles;
+export default MenuDatiles;

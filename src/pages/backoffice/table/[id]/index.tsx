@@ -8,7 +8,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const tableDetails = () => {
+const TableDetails = () => {
   const dispatch = useAppDispatch();
   const { tables } = useAppSelector((item) => item.table);
   const [updateData, setUpdateData] = useState<UpdateTable>();
@@ -99,4 +99,4 @@ const tableDetails = () => {
   );
 };
 
-export default tableDetails;
+export default TableDetails;

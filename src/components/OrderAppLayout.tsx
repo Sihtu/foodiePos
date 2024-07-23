@@ -12,6 +12,7 @@ interface Props {
   children: ReactNode;
 }
 const OrderAppLayout = ({ children }: Props) => {
+
   const dispatch = useAppDispatch();
   const router = useRouter();
   const tableId = Number(router.query.tableId);
@@ -21,7 +22,6 @@ const OrderAppLayout = ({ children }: Props) => {
 
   if (!tableId) return null;
   
-  const {theme} = useAppSelector((item)=> item.app)
   const themeName = localStorage.getItem("theme") as Theme
   if(themeName){
 

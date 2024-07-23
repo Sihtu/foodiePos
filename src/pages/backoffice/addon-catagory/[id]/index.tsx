@@ -24,7 +24,7 @@ import { Menu } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const addonCatagoryDetails = () => {
+const AddonCatagoryDetails = () => {
   const menu = useAppSelector((item) => item.menu.item);
   const { menuAddonCategory } = useAppSelector(
     (item) => item.menuAddonCategory
@@ -93,7 +93,7 @@ const addonCatagoryDetails = () => {
   if(!updateData){
     return(
       <Box>
-        Backoffice can't show!
+        Backoffice can not show!
       </Box>
     )
   }
@@ -143,7 +143,7 @@ const addonCatagoryDetails = () => {
         </Box>
         <DeleteDialog
           title={"Addon Category"}
-          content={"Are you sure to delete this addon category!"}
+          content={"Are you sure to delete this addon category"}
           open={open}
           setOpen={setOpen}
           handleDelete={handleDelete}
@@ -153,4 +153,4 @@ const addonCatagoryDetails = () => {
   );
 };
 
-export default addonCatagoryDetails;
+export default AddonCatagoryDetails;

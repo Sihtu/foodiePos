@@ -21,7 +21,7 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const locationDetails = () => {
+const LocationDetails = () => {
   const { selectedLocation } = useAppSelector((item) => item.app);
   const { locations } = useAppSelector((item) => item.location);
   const dispatch = useAppDispatch();
@@ -151,4 +151,4 @@ const locationDetails = () => {
   );
 };
 
-export default locationDetails;
+export default LocationDetails;

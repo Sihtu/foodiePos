@@ -23,7 +23,7 @@ const Addon = () => {
           </Box>
           <Box sx={{display: "flex" , flexWrap: "wrap"}}>
             {addons.map((item) => (
-              <ItemCard
+              <ItemCard key={item.id}
                 title={item.name}
                 icon={<WaterDropIcon />}
                 href={`/backoffice/addon/${item.id}`}

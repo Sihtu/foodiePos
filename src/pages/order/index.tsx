@@ -22,7 +22,7 @@ const Home = () => {
     }
   }, [menuCatagory]);
 
-  const renderMenu = () => {
+  const RenderMenu = () => {
     const router= useRouter()
     const tableId = Number(router.query.tableId)
     const vaildMenuIds = menuCategoryMenu
@@ -33,7 +33,7 @@ const Home = () => {
 
     return vaildMenus.map((item) => (
       
-      <MenuCard menu={item} href={`/order/menu/${item.id}?tableId=${tableId}`} />
+      <MenuCard key={item.id} menu={item} href={`/order/menu/${item.id}?tableId=${tableId}`} />
     ));
   };
 
@@ -51,7 +51,7 @@ const Home = () => {
         </Tabs>
       </Box>
       <Box sx={{display: "flex", flexWrap: "wrap"}}>
-        {renderMenu()}
+        {RenderMenu()}
       </Box>
     </Box>
   );

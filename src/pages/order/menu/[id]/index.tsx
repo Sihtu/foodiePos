@@ -10,7 +10,7 @@ import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const menuDetails = () => {
+const MenuDetails = () => {
   const dispatch = useAppDispatch();
   const [number, setNumber] = useState(1);
   const menus = useAppSelector((item) => item.menu.item);
@@ -21,27 +21,43 @@ const menuDetails = () => {
   const { addons } = useAppSelector((item) => item.addon);
   const router = useRouter();
   const cartSliceId = router.query.cartItemId;
+
+  const [selectedAddon, setSelectedAddon] = useState<Addon[]>([]);
+  const [isDisable, setIsDisable] = useState<boolean>(false);
   const { item } = useAppSelector((item) => item.cart);
   const vaildCart = item.find((item) => item.id === cartSliceId);
+
+  const menuId = Number(router.query.id);
+  const tableId = Number(router.query.tableId);
+  const vaildMenu = menus.find((item) => item.id === menuId);
+  const addonCategories = useAppSelector(
+    (item) => item.addonCategory.addonCategories
+  ).filter((items) => addonCategoryIds.includes(items.id));
+  useEffect(() => {
+    const requireAddonCategory = addonCategories.filter(
+      (item) => item.isRequired
+    ).length;
+
+    const selectedRequireAddonCategory = selectedAddon.filter((item) => {
+      const addonCategory = addonCategories.find(
+        (items) => items.id === item.id
+      );
+      return addonCategory?.isRequired ? true : false;
+    }).length;
+
+    const disable = requireAddonCategory !== selectedRequireAddonCategory;
+    setIsDisable(disable);
+  }, [selectedAddon, addonCategories]);
+
   useEffect(() => {
     if (vaildCart) {
       setSelectedAddon(vaildCart.addon);
     }
   }, [vaildCart]);
-  const menuId = Number(router.query.id);
-  const tableId = Number(router.query.tableId);
-  const vaildMenu = menus.find((item) => item.id === menuId);
-
   const addonCategoryIds = menuAddonCategory
     .filter((items) => items.menuId === menuId)
     .map((item) => item.addonCategoryId);
 
-  const addonCategories = useAppSelector(
-    (item) => item.addonCategory.addonCategories
-  ).filter((items) => addonCategoryIds.includes(items.id));
-
-  const [selectedAddon, setSelectedAddon] = useState<Addon[]>([]);
-  const [isDisable, setIsDisable] = useState<boolean>(false);
   const decrease = () => {
     let value = number - 1 === 0 ? 1 : number - 1;
     setNumber(value);
@@ -51,23 +67,6 @@ const menuDetails = () => {
     setNumber(value);
   };
   if (!vaildMenu) return null;
-
-  useEffect(() => {
-    const requireAddonCategory = addonCategories.filter(
-      (item) => item.isRequired
-    ).length;
-
-    const selectedRequireAddonCategory = selectedAddon.filter((item) => {
-      const addonCategoryIds = item.addonCategoryId;
-      const addonCategory = addonCategories.find(
-        (items) => items.id === addonCategoryIds
-      );
-      return addonCategory?.isRequired ? true : false;
-    }).length;
-
-    const disable = requireAddonCategory !== selectedRequireAddonCategory;
-    setIsDisable(disable);
-  }, [selectedAddon]);
 
   const handleCreateNewCart = () => {
     const newCart: CartItem = {
@@ -107,4 +106,4 @@ const menuDetails = () => {
   );
 };
 
-export default menuDetails;
+export default MenuDetails;

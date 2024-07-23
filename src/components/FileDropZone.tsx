@@ -12,7 +12,7 @@ const FileDropZone = ({ onDrop }: OnDropProps) => {
       {isDragActive ? (
         <p>Photo has been selected</p>
       ) : (
-        <p>Photo hasn't selected</p>
+        <p>Photo has not selected</p>
       )}
     </Box>
   );

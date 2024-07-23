@@ -13,7 +13,7 @@ import OrderAppLayout from "@/src/components/OrderAppLayout";
 import { createOrder } from "@/src/store/slice/orderSlice";
 import { CreateOrder } from "@/src/types/order";
 
-const cart = () => {
+const Cart = () => {
   const { item } = useAppSelector((item) => item.cart);
   const router = useRouter();
   const tableId = Number(router.query.tableId);
@@ -43,7 +43,7 @@ const cart = () => {
     if (!addon.length) return null;
     return addon.map((item) => {
       return (
-        <Box
+        <Box key={item.id}
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -61,7 +61,7 @@ const cart = () => {
     <Box>
       {item.map((item) => {
         return (
-          <Box
+          <Box key={item.id}
             sx={{
               width: 500,
             }}
@@ -118,4 +118,4 @@ const cart = () => {
   );
 };
 
-export default cart;
+export default Cart;

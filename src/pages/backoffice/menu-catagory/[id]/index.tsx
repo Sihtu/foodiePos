@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 
 type MenuCategoryType = MenuCategory | undefined;
 
-const menuCatagoryDetails = () => {
+const MenuCatagoryDetails = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const [updateData, setUpdateData] = useState<UpdateMenuCatagoryPayload>();
@@ -140,4 +140,4 @@ const menuCatagoryDetails = () => {
   );
 };
 
-export default menuCatagoryDetails;
+export default MenuCatagoryDetails;

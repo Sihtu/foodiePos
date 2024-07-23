@@ -16,7 +16,7 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const addonDetails = () => {
+const AddonDetails = () => {
   const dispatch = useAppDispatch();
   const { addons } = useAppSelector((item) => item.addon);
   const { addonCategories } = useAppSelector((item) => item.addonCategory);
@@ -107,4 +107,4 @@ const addonDetails = () => {
   );
 };
 
-export default addonDetails;
+export default AddonDetails;

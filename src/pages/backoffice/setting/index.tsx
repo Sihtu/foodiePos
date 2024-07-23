@@ -4,7 +4,7 @@ import { useAppSelector } from "@/src/store/hook";
 import { Box } from "@mui/material";
 import StoreIcon from "@mui/icons-material/Store";
 
-const setting = () => {
+const Setting = () => {
   const { company } = useAppSelector((item) => item.company);
 
   return (
@@ -22,4 +22,4 @@ const setting = () => {
   );
 };
 
-export default setting;
+export default Setting;

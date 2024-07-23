@@ -27,7 +27,7 @@ const ShowAddon = ({
     <Box>
       {addon.map((addon) => {
         return (
-          <Box
+          <Box key={addon.id}
             sx={{
               display: "flex",
               justifyContent: "space-between",
