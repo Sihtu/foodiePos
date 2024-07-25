@@ -8,7 +8,6 @@ import { getSession, useSession } from "next-auth/react";
 //serverless function
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
-  console.log(session);
   if (session) {
     const { user } = session;
     if (user) {
@@ -156,7 +155,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
   } else {
-    res.status(200).send("Something went Wrong");
+    res.status(401).send("Something went Wrong");
   }
   /*
   const method = req.method;
