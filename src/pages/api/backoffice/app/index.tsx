@@ -1,6 +1,6 @@
 //Next.js Api route support: http://nextjs.org/docs/api-routes/introduction
 
-import AddonCatagory from "@/src/pages/backoffice/addon-catagory";
+import AddonCatagory from "@/src/pages/api/backoffice/addon-catagory";
 import { prisma } from "@/src/utils/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -8,7 +8,7 @@ import { getSession, useSession } from "next-auth/react";
 //serverless function
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
-  console.log(session)
+  console.log(session);
   if (session) {
     const { user } = session;
     if (user) {
@@ -29,11 +29,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const locationIds = location.map((item) => item.id);
         const table = await prisma.table.findMany({
-          where: { locationId: { in: locationIds } , isArchived: false},
+          where: { locationId: { in: locationIds }, isArchived: false },
         });
         //this is to show itemCard corret order
-        const menuCatagory = await prisma.menuCategory.findMany({orderBy: [{id: "asc"}],
-          where: { companyId},
+        const menuCatagory = await prisma.menuCategory.findMany({
+          orderBy: [{ id: "asc" }],
+          where: { companyId },
         });
 
         const menuCatagoryIds = menuCatagory.map((item) => item.id);
@@ -47,7 +48,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
         const menuIds = menuCatagoryMenu.map((item) => item.menuId);
 
-        const disableLocationMenu = await prisma.disabledLocationMenu.findMany({where: {menuId: {in: menuIds}}})
+        const disableLocationMenu = await prisma.disabledLocationMenu.findMany({
+          where: { menuId: { in: menuIds } },
+        });
 
         const menu = await prisma.menu.findMany({
           where: { id: { in: menuIds }, isArchived: false },
@@ -61,11 +64,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const addon = await prisma.addon.findMany({
           where: { addonCategoryId: { in: AddonCatagoryIds } },
         });
-        const addonCatagory = await prisma.addonCategory.findMany({orderBy: [{id: "asc"}],
+        const addonCatagory = await prisma.addonCategory.findMany({
+          orderBy: [{ id: "asc" }],
           where: { id: { in: AddonCatagoryIds }, isArchived: false },
         });
-        const order = await prisma.order.findMany({where: {tableId: {in: table.map(item=> item.id)}}})
-        console.log(order)
+        const order = await prisma.order.findMany({
+          where: { tableId: { in: table.map((item) => item.id) } },
+        });
+        console.log(order);
         res.status(200).json({
           company,
           location,
@@ -78,7 +84,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           menuAddonCatagory,
           disableLocationMenuCategoryMenu,
           disableLocationMenu,
-          order
+          order,
         });
       } else {
         const newCompany = await prisma.company.create({
@@ -145,7 +151,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           menuAddonCatagory: [newMenuAddonCatagory],
           disableLocationMenuCategoryMenu: [],
           disableLocationMenu: [],
-          order: []
+          order: [],
         });
       }
     }

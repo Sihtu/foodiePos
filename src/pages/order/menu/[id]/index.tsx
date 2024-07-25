@@ -1,6 +1,6 @@
 import ShowAddonCategory from "@/src/components/AddonCategory";
 import QuantityCounter from "@/src/components/QuantityCounter";
-import AddonCatagory from "@/src/pages/backoffice/addon-catagory";
+import AddonCatagory from "@/src/pages/api/backoffice/addon-catagory";
 import { useAppDispatch, useAppSelector } from "@/src/store/hook";
 import { addToCart } from "@/src/store/slice/cartSlice";
 import { CartItem, CartSliceProps } from "@/src/types/cart";
