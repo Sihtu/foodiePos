@@ -14,7 +14,6 @@ const Layout = ({ children }: Props) => {
   const { tableId } = router.query;
   const isBackoffice = router.pathname.includes("backoffice");
   const isOrder = tableId;
-  const { data } = useSession();
   if (isBackoffice) {
     return <BackOfficeLayout >{children}</BackOfficeLayout>;
   }

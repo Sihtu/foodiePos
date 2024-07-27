@@ -39,7 +39,7 @@ export const fetchAppData = createAsyncThunk(
     const { tableId } = option;
     const apiUrl = tableId
       ? `${config.orderAppApiUrl}/app?tableId=${tableId}`
-      : `${config.backOfficeUrl}/app`;
+      : `${config.backOfficeUrl}/menu`;
     const respond = await fetch(apiUrl);
     const data = await respond.json();
     const {
