@@ -42,3 +42,5 @@ const BackOfficeLayout = ({ children }: Props) => {
 };
 
 export default BackOfficeLayout;
+
+
