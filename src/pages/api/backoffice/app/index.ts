@@ -5,8 +5,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
 //serverless function
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req,"This is Sithu")
+export default async function handler   (req: NextApiRequest, res: NextApiResponse)  {
   const session = await getSession({ req });
   
   if (session) {
@@ -160,4 +159,3 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   
 };
 
-export default handler;
