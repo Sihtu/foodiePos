@@ -1,7 +1,7 @@
 import { Box, Snackbar } from "@mui/material";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import { fetchAppData, setInt } from "../store/slice/appSlice";
@@ -16,6 +16,7 @@ const BackOfficeLayout = ({ children }: Props) => {
   const { init } = useAppSelector((item) => item.app);
   const dispatch = useAppDispatch();
   const { data } = useSession();
+  const [value, setValue] = useState<boolean>(false)
 
   useEffect(() => {
     if (!init) {
@@ -30,9 +31,9 @@ const BackOfficeLayout = ({ children }: Props) => {
 
   return (
     <Box sx={{ height: "100vh", }}>
-      <TopBar />
+      <TopBar value={value} setValue={setValue}/>
       <Box sx={{ display: "flex", height: "90%" }}>
-        {data && <SideBar />}
+        {data && value && <SideBar />}
 
         <Box sx={{ padding: 1, width: "100%", bgcolor: "info.main", }}>{children}</Box>
       </Box>

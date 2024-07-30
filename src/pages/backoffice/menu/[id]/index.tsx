@@ -24,6 +24,7 @@ import {
 import { Menu, MenuCategory } from "@prisma/client";
 import { useRouter } from "next/router";
 import FileDropZone from "@/src/components/FileDropZone";
+import { uploadAsset } from "@/src/store/slice/appSlice";
 
 const MenuDatiles = () => {
   const dispatch = useAppDispatch();
@@ -110,18 +111,31 @@ const MenuDatiles = () => {
       );
     }
 
-    {
-      updateData &&
-        dispatch(
-          updateMenu({
-            ...updateData,
-            onSuccess: () => {
-              dispatch(openSnackBar({ type: "success", message: "Okay" }));
-            },
-          })
-        );
-
-      router.push("/backoffice/menu");
+    
+    if (menuImage) {
+      dispatch(
+        uploadAsset({
+          file: menuImage,
+          onSuccess: (assetUrl) => {
+            updateData.assetUrl = assetUrl;
+            dispatch(
+              updateMenu
+              ({
+                ...updateData,
+                onSuccess: () =>
+                  dispatch(
+                    openSnackBar({
+                      type: "success",
+                      message: "It was created successfully",
+                    }),
+                    router.push("/backoffice/menu")
+                  ),
+                  
+              })
+            );
+          },
+        })
+      );
     }
   };
 

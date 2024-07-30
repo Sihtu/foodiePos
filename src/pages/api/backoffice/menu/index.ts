@@ -25,6 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (method === "PUT") {
     const {
       id,
+      assetUrl,
       isAvailable,
       locationId,
       name,
@@ -53,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!vaild) res.status(401).send("Bad request");
 
     const updateMenu = await prisma.menu.update({
-      data: { name, price },
+      data: { name, price ,assetUrl},
       where: { id },
     });
 
