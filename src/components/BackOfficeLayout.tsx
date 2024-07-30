@@ -16,7 +16,7 @@ const BackOfficeLayout = ({ children }: Props) => {
   const { init } = useAppSelector((item) => item.app);
   const dispatch = useAppDispatch();
   const { data } = useSession();
-  const [value, setValue] = useState<boolean>(false)
+  const [value, setValue] = useState<boolean>(true)
 
   useEffect(() => {
     if (!init) {

@@ -83,7 +83,7 @@ const MenuCatagoryDetails = () => {
   }
 
   return (
-    <Box>
+    
       <Box>
         <Box display="flex" justifyContent="flex-end">
           <Button
@@ -136,7 +136,7 @@ const MenuCatagoryDetails = () => {
           }}
         />
       </Box>
-    </Box>
+    
   );
 };
 

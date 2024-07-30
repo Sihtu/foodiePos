@@ -28,9 +28,9 @@ const MenuCatagory = () => {
     setTimeout(() => dispatch(hideSnackBar()), 3000), [message];
   });
   return (
-    <Box>
-      <Box>
-        <Box>
+    
+      
+        <Box >
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
               variant="contained"
@@ -39,7 +39,7 @@ const MenuCatagory = () => {
               New Menu Catagory
             </Button>
           </Box>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
             {menuCatagory.map((menuCategoryItem) => {
               const isDisable =disableLocationMenuCategories&& disableLocationMenuCategories.find(
                 (item) =>
@@ -67,8 +67,8 @@ const MenuCatagory = () => {
           />
           <AppSnackBar />
         </Box>
-      </Box>
-    </Box>
+      
+    
   );
 };
 
