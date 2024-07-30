@@ -112,6 +112,7 @@ const NewMenuDialog = ({ open, setOpen }: Props) => {
             />
             <Box>
               <FileDropZone onDrop={(file) => setMenuImage(file[0])} />
+                {menuImage && <Chip sx={{mt: 3}} label={menuImage.name} variant="outlined" onDelete={()=> {setMenuImage(undefined)}} />}
             </Box>
           </Box>
         </DialogContent>
