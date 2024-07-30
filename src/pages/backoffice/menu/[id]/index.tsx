@@ -11,6 +11,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
   FormControl,
   FormControlLabel,
   InputLabel,
@@ -22,6 +23,7 @@ import {
 } from "@mui/material";
 import { Menu, MenuCategory } from "@prisma/client";
 import { useRouter } from "next/router";
+import FileDropZone from "@/src/components/FileDropZone";
 
 const MenuDatiles = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +35,8 @@ const MenuDatiles = () => {
   const { menuCategoryMenu } = useAppSelector((item) => item.menuCategoryMenu);
   const { menuCatagory } = useAppSelector((item) => item.menuCatagory);
   const [selected, setSelected] = useState<number[]>([]);
+  const [menuImage, setMenuImage] = useState<any>();
+  
   const [open, setOpen] = useState<boolean>(false);
   const { disableLocationMenu } = useAppSelector(
     (item) => item.disableLocationMenu
@@ -66,13 +70,16 @@ const MenuDatiles = () => {
       item.menuId === menuDatilesId && item.locationId === selectedLocation?.id
   )
     ? false
-    : true;   
+    : true;
 
-    
-useEffect(() => {
+  useEffect(() => {
     if (showMenu) {
+      const file = showMenu.assetUrl;
       setUpdateData(showMenu);
       setSelected(selectedMenuCategoryIds);
+      {
+        file && setMenuImage(file);
+      }
     }
   }, [showMenu]);
 
@@ -172,6 +179,19 @@ useEffect(() => {
             }
             label="Available"
           />
+          <Box>
+            <FileDropZone onDrop={(file) => setMenuImage(file[0])} />
+            {menuImage && (
+              <Chip
+                sx={{ mt: 3 }}
+                label={menuImage.name?menuImage.name: "Original Image"}
+                variant="outlined"
+                onDelete={() => {
+                  setMenuImage(undefined);
+                }}
+              />
+            )}
+          </Box>
           <Button
             onClick={() => handleUpdate()}
             variant="contained"
