@@ -29,8 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           await prisma.disabledLocationMenuCategory.findFirst({
             where: { menuCategoryId: id, locationId },
           });
-        if (!disableMenuCategory)
-          return res.status(200).send("You should select something");
+        if (disableMenuCategory)
         await prisma.disabledLocationMenuCategory.delete({
           where: { id: disableMenuCategory?.id },
         });
