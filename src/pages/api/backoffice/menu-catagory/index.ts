@@ -10,6 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).send("Okay Get Menu Catagory");
   } else if (method === "POST") {
     const { name, isAvailable, companyId } = req.body;
+    console.log(req.body)
     const isVild = name && companyId && isAvailable !== undefined;
     if (!isVild) return res.status(400).json("Bad request");
     const menuCatagory = await prisma.menuCategory.create({
@@ -19,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (method === "PUT") {
     const { id, isAvailable, locationId, ...payload } = req.body;
     const vaild = await prisma.menuCategory.findFirst({ where: { id } });
-    if (locationId && isAvailable !== undefined) {
+    if (locationId && isAvailable !== undefined) { 
       if (isAvailable === false) {
         await prisma.disabledLocationMenuCategory.create({
           data: { menuCategoryId: id, locationId: locationId },
