@@ -4,7 +4,9 @@ import Link from "next/link";
 const Home = () => {
   return (
     <Box>
-      <Typography variant="h4">Landing Site(Stagings)</Typography>
+
+      <Typography variant="h4">Landing Site(Staging)</Typography>
+
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Link href={"/backoffice"}>
           <Typography variant="h5">Back Office</Typography>
