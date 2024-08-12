@@ -51,7 +51,7 @@ const Footer = () => {
     >
       {footerImage.map((item) => {
         return (
-          <Box sx={{ mb: 10, ml: 10 }}>
+          <Box sx={{ mb: 10, ml: 10 } } key={item.id}>
             <Grow in={true} timeout={1000}>
               {
                 <Box>

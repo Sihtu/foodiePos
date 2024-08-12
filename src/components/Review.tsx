@@ -45,7 +45,7 @@ const Review = () => {
     <Box sx={{display: "flex",justifyContent: "center"}}>
       {peopleReview.map((item) => {
         return (
-          <Card sx={{ maxWidth: 345, m: 2 }}>
+          <Card sx={{ maxWidth: 345, m: 2 }} key={item.id}>
             <CardHeader 
               avatar={<Avatar alt="Ted talk" src={item.image}/>}
               title={item.name}
