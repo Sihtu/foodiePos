@@ -30,6 +30,9 @@ const MenuDetails = () => {
   const menuId = Number(router.query.id);
   const tableId = Number(router.query.tableId);
   const vaildMenu = menus.find((item) => item.id === menuId);
+  const addonCategoryIds = menuAddonCategory
+    .filter((items) => items.menuId === menuId)
+    .map((item) => item.addonCategoryId);
   const addonCategories = useAppSelector(
     (item) => item.addonCategory.addonCategories
   ).filter((items) => addonCategoryIds.includes(items.id));
@@ -54,9 +57,7 @@ const MenuDetails = () => {
       setSelectedAddon(vaildCart.addon);
     }
   }, [vaildCart]);
-  const addonCategoryIds = menuAddonCategory
-    .filter((items) => items.menuId === menuId)
-    .map((item) => item.addonCategoryId);
+  
 
   const decrease = () => {
     let value = number - 1 === 0 ? 1 : number - 1;
