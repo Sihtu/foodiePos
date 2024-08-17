@@ -27,7 +27,7 @@ const Header = () => {
         />
       </Box>
 
-      <Typography sx={{ position: "absolute", mt: 4, fontSize: 30, color: "white" }}> Foodie Pos</Typography></Box>}
+      <Typography sx={{ position: "absolute", mt: {xs: 1, md: 4}, fontSize: {xs: 10, md: 30}, color: "black"}}> Foodie Pos</Typography></Box>}
   </Slide>
       
     </Box>

@@ -42,21 +42,32 @@ const Review = () => {
     },
   ];
   return (
-    <Box sx={{display: "flex",justifyContent: "center"}}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: "center"
+      }}
+    >
       {peopleReview.map((item) => {
         return (
-          <Card sx={{ maxWidth: 345, m: 2 }} key={item.id}>
-            <CardHeader 
-              avatar={<Avatar alt="Ted talk" src={item.image}/>}
+          <Card sx={{ maxWidth: { xs: "60%", md: 345 }, m: 2 }} key={item.id}>
+            <CardHeader
+              sx={{ fontSize: { xs: "12px", md: "20px" } }}
+              avatar={<Avatar alt="Ted talk" src={item.image} />}
               title={item.name}
               subheader={item.time}
             />
 
             <CardContent>
-              <Typography variant="body2" color="text.secondary" component="p">
-                {
-                 item.review
-                }
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                component="p"
+                sx={{ fontSize: { xs: "12px", md: "20px" } }}
+              >
+                {item.review}
               </Typography>
             </CardContent>
           </Card>
